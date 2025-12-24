@@ -38,14 +38,26 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-        <repository>
-            <id>mvnrepository</id>
-            <url>https://mvnrepository.com/</url>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
     </repositories>
+
+    <profiles>
+        <profile>
+            <id>with-extras</id>
+            <repositories>
+                <repository>
+                    <id>jitpack.io</id>
+                    <url>https://jitpack.io</url>
+                </repository>
+                <repository>
+                    <id>mvnrepository</id>
+                    <url>https://mvnrepository.com/</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>

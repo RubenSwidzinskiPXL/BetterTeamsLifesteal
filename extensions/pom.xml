@@ -16,7 +16,7 @@
 
     <modules>
         <module>luckperms-extension</module>
-        <module>zkoth-extension</module>
+        <module>teams-lifesteal-extension</module>
     </modules>
 
     <dependencies>
@@ -25,9 +25,12 @@
             <artifactId>BetterTeams</artifactId>
         </dependency>
 
+        <!-- Compile against Spigot API 1.21 (works on Paper at runtime) -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
+            <version>1.21-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -63,5 +66,29 @@
         </resources>
     </build>
 
+    <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
+
+
+    <profiles>
+        <profile>
+            <id>with-extras</id>
+            <modules>
+                <module>zkoth-extension</module>
+            </modules>
+        </profile>
+    </profiles>
 
 </project>

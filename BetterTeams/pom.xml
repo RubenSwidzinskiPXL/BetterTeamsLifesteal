@@ -40,10 +40,6 @@
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-        <repository>
             <id>codemc-repo</id>
             <url>https://repo.codemc.io/repository/maven-public/</url>
         </repository>
@@ -54,10 +50,6 @@
         <repository>
             <id>songoda-minecraft-plugins</id>
             <url>https://repo.songoda.com/repository/minecraft-plugins/</url>
-        </repository>
-        <repository>
-            <id>mvnrepository</id>
-            <url>https://mvnrepository.com/</url>
         </repository>
         <repository>
             <id>tcoded-releases</id>
@@ -76,27 +68,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.MilkBowl</groupId>
+            <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
-            <version>1.7.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.booksaw</groupId>
-            <artifactId>betterteams-deadends</artifactId>
-            <version>4b3d734531</version>
+            <version>1.7</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.gmail.filoghost.holographicdisplays</groupId>
             <artifactId>holographicdisplays-api</artifactId>
             <version>2.4.9</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.decentsoftware-eu</groupId>
-            <artifactId>decentholograms</artifactId>
-            <version>2.9.9</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -324,6 +304,69 @@
         </resources>
     </build>
     <profiles>
+        <profile>
+            <id>with-extras</id>
+            <dependencies>
+                <!-- Optional integrations that require JitPack -->
+                <dependency>
+                    <groupId>com.github.decentsoftware-eu</groupId>
+                    <artifactId>decentholograms</artifactId>
+                    <version>2.9.9</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.github.booksaw</groupId>
+                    <artifactId>betterteams-deadends</artifactId>
+                    <version>4b3d734531</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+            <repositories>
+                <repository>
+                    <id>jitpack.io</id>
+                    <url>https://jitpack.io</url>
+                </repository>
+                <repository>
+                    <id>mvnrepository</id>
+                    <url>https://mvnrepository.com/</url>
+                </repository>
+            </repositories>
+        </profile>
+        <profile>
+            <id>no-extras</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-compile</id>
+                                <goals>
+                                    <goal>compile</goal>
+                                </goals>
+                                <configuration>
+                                    <excludes>
+                                        <exclude>**/integrations/hologram/DHHologramManager.java</exclude>
+                                    </excludes>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-testCompile</id>
+                                <goals>
+                                    <goal>testCompile</goal>
+                                </goals>
+                                <configuration>
+                                    <excludes>
+                                        <exclude>**/integrations/hologram/DHHologramManager.java</exclude>
+                                    </excludes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>javadocs</id>
             <build>

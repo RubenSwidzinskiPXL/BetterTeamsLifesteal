@@ -1,0 +1,60 @@
+# Teams Lifesteal Extension configuration
+
+# Clan tag rules
+# Only uppercase A-Z and digits, up to 5 characters
+clanTag:
+  pattern: "[A-Z0-9]{1,5}"
+  enforceUppercase: true
+  denyMessage: "&cTag must be 1-5 chars [A-Z0-9]"
+
+# Warp exhaustion / economy
+warp:
+  freePerDay: 3
+  cost: 250.0
+  payOrder: [ TEAM, PLAYER ]  # TEAM bank first, then player balance
+  denyMessage: "&cNot enough free warps/funds to warp."
+  useMessages:
+    free: "&aFree team warp used: &e%used%/%limit%"
+    paidTeam: "&aCharged team bank &e$%amount% &7for warp"
+    paidPlayer: "&aCharged your balance &e$%amount% &7for warp"
+  storage:
+    file: "warp-usage.yml"  # per-day counters
+
+# Homes (optional economy rules for extra homes)
+home:
+  freeLimit: 1
+  extraCostBase: 500.0
+  extraCostIncrement: 250.0
+  enabled: false
+
+# Sidebar (Scoreboard)
+sidebar:
+  enabled: true
+  title: "&bTeams Online"
+  maxTeams: 10
+  updateSeconds: 5
+
+# Friendly fire / Lifesteal-safety
+pvp:
+  blockFriendlyFire: true
+  blockSameTeamHeartSteal: true
+
+# Placeholder identifiers
+placeholders:
+  identifier: "teamslf"
+
+# LuckPerms meta integration (optional)
+luckperms:
+  setPrefixToTag: false
+  metaKey: "team_tag"
+
+# Admin command permissions and options
+admin:
+  permissions:
+    root: teamslifesteal.admin
+    resetWarpUses: teamslifesteal.admin.resetwarpuses
+    setTag: teamslifesteal.admin.settag
+    setSize: teamslifesteal.admin.setsize
+    setFreeWarps: teamslifesteal.admin.setfreewarps
+  tag:
+    pattern: "^[A-Z0-9]{1,5}$"

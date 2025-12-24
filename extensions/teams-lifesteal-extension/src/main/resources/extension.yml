@@ -1,0 +1,6 @@
+name: ${project.name}
+version: ${project.version}
+author: BetterTeams Community
+main: com.booksaw.betterTeams.extensions.teamslifesteal.TeamsLifestealExtension
+plugin-depend: [ Vault ]
+plugin-softdepend: [ PlaceholderAPI, LuckPerms, TAB, Essentials, lifestealz ]
