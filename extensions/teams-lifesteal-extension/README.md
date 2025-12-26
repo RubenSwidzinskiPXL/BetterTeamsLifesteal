@@ -1,54 +1,49 @@
-# Teams Lifesteal Extension
+# Teams Lifesteal Extension — New & Overrides
 
-An add-on for BetterTeams that adds Lifesteal-safe team features:
+This document focuses only on what this extension adds and what it overrides in BetterTeams.
 
-- Warp exhaustion with paid fallback (team bank → player)
-- Clan tag rules (A-Z0-9, max 5) + LuckPerms meta/prefix
-- Sidebar listing online teams only
-- Friendly-fire block and teammate heart-steal prevention
+## New Features
+
+- Warp exhaustion with paid fallback (team bank → player via Vault)
+- Clan tag rules (A–Z, 0–9, max 5) + LuckPerms meta/prefix
+- Sidebar listing online teams only (sorted, capped)
+- Friendly-fire block and same-team heart-steal prevention
 - Placeholders: `%teamslf_tag%`, `%teamslf_online%`
+
+## Overrides / Scrapped Core Behavior
+
+- Team warp flow can charge players when daily free quota is exhausted (configurable)
+- Tag policy enforced by regex; non‑compliant tags are rejected and sanitized
+- LuckPerms meta `team_tag` (and optional prefix) is written by the extension, overriding other tag writers
+- Friendly‑fire toggle is enforced regardless of core pvp settings when enabled here
 
 ## Install
 
-1. Build the parent project (`mvn -DskipTests package`) using Java 17+.
-2. Copy `teams-lifesteal-extension-<version>.jar` to `plugins/BetterTeams/extensions/`.
-3. Restart server.
+- Build with `mvn -DskipTests package` (Java 17+)
+- Manually place `teams-lifesteal-extension-<version>.jar` into `plugins/BetterTeams/extensions/`
+- Restart the server to generate the extension `config.yml`
 
-## Configure (`config.yml`)
+Note: BetterTeams does not auto‑download or auto‑install extensions. JARs must be placed in `plugins/BetterTeams/extensions/`.
 
-- `warp.freePerDay`, `warp.cost`, `warp.payOrder` (Paper 1.21.x)
-- `clanTag.pattern`, `luckperms.setPrefixToTag`, `luckperms.metaKey`
-- `sidebar.enabled`, `sidebar.title`, `sidebar.maxTeams`, `sidebar.updateSeconds`
-- `pvp.blockFriendlyFire`, `pvp.blockSameTeamHeartSteal`
-
-## Permissions
-
-- `teamslifesteal.admin` → base for `/btls`
-- `teamslifesteal.admin.resetwarpuses`
-- `teamslifesteal.admin.settag`
-- `teamslifesteal.admin.setsize`
-- `teamslifesteal.admin.setfreewarps`
-- `teamslifesteal.bypass.warplimit`
-- `teamslifesteal.bypass.warpcost`
-- `teamslifesteal.friendlyfire.override`
-
-## Commands
+## Commands (Extension‑only)
 
 - `/btls resetwarpuses [all|<team>]`
 - `/btls settag <team> <TAG>`
 - `/btls setsize <team> <size>`
 - `/btls setfreewarps <team> <amount>`
 
-Note: This command is intercepted via chat; no Bukkit command registration is required.
+Tab‑completion: These are intercepted via `PlayerCommandPreprocessEvent` and are not registered in Bukkit’s command map, so vanilla tab‑completion will not list them. Commands still work when typed fully.
 
-## Placeholders
+## Key Configuration
 
-- `%teamslf_tag%` — player team tag
-- `%teamslf_online%` — online member count
+- `warp.freePerDay`, `warp.cost`, `warp.payOrder`
+- `clanTag.pattern`, `luckperms.setPrefixToTag`, `luckperms.metaKey`
+- `sidebar.enabled`, `sidebar.title`, `sidebar.maxTeams`, `sidebar.updateSeconds`
+- `pvp.blockFriendlyFire`, `pvp.blockSameTeamHeartSteal`
 
-## Files of interest
+## Permissions
 
-- Listeners: `TeamWarpListener`, `TagEnforcementListener`, `TagMetaListener`, `FriendlyFireListener`
-- Services: `EconomyService`, `TeamService`, `AdminStore`
-- UI: `SidebarManager`
-- Admin: `AdminCommandListener`, `JoinLimitListener`
+- `teamslifesteal.admin`, `teamslifesteal.admin.resetwarpuses`, `teamslifesteal.admin.settag`
+- `teamslifesteal.admin.setsize`, `teamslifesteal.admin.setfreewarps`
+- `teamslifesteal.bypass.warplimit`, `teamslifesteal.bypass.warpcost`
+- `teamslifesteal.friendlyfire.override`
